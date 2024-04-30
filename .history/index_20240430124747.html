@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My website</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h1>Functional TODO List</h1>
+<input type="text" id="todoInput" placeholder="Add a TODO item">
+<button onclick="addTodo()">Add TODO</button>
+<ul id="todoList"></ul>
+
+<script>
+// State to manage TODO items
+let todos = [];
+
+// Function to add a TODO item
+function addTodo() {
+    const todoInput = document.getElementById("todoInput");
+    const newTodo = todoInput.value;
+
+    if (newTodo.trim() !== "") {
+        todos.push(newTodo);
+        displayTodoList();
+        todoInput.value = "";
+    } else {
+        alert("Please enter a valid TODO item.");
+    }
+}
+
+// Function to remove a TODO item
+function removeTodo(index) {
+    todos.splice(index, 1);
+    displayTodoList();
+}
+
+// Function to display the updated TODO list
+function displayTodoList() {
+    const todoList = document.getElementById("todoList");
+    todoList.innerHTML = "";
+
+    todos.map((todo, index) => {
+        const li = document.createElement("li");
+        li.textContent = todo;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.onclick = () => removeTodo(index);
+
+        li.appendChild(removeBtn);
+        todoList.appendChild(li);
+    });
+}
+</script>
+</body>
+</html>
